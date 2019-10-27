@@ -60,7 +60,8 @@ class DomainSearcher
             if(is_null($domainRecord)){
                 $dnsRecord = dns_get_record($domainName);
                 $domainRecord = ['domain'=>$domainName,'records'=>$dnsRecord];
-                DB::table('dnsRecords')->insert($domainRecord);
+                $domainRecordJson = ['domain'=>$domainName,'records'=>json_encode($dnsRecord)];
+                DB::table('dnsRecords')->insert($domainRecordJson);
             }else{
                 $domainRecord = [
                     'domain' => $domainRecord->domain,
